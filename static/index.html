@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InvestTrack — Jouw portfolio in één overzicht</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236366f1'/%3E%3Cstop offset='1' stop-color='%2322d3ee'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M8 22 L13 15 L17 18 L24 8' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='24' cy='8' r='2.4' fill='white'/%3E%3C/svg%3E" />
+</head>
+<body>
+
+  <div class="app-shell">
+
+    <!-- ===== Sidebar ===== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <span class="brand-mark">
+          <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true">
+            <defs>
+              <linearGradient id="lg-brand" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#6366f1"/><stop offset="1" stop-color="#22d3ee"/>
+              </linearGradient>
+            </defs>
+            <rect width="32" height="32" rx="8" fill="url(#lg-brand)"/>
+            <path d="M8 22 L13 15 L17 18 L24 8" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="24" cy="8" r="2.4" fill="#fff"/>
+          </svg>
+        </span>
+        <span class="brand-name">Invest<span>Track</span></span>
+      </div>
+
+      <nav class="nav">
+        <a href="#dashboard" class="nav-item active" data-nav>
+          <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+          Dashboard
+        </a>
+        <a href="#beleggingen" class="nav-item" data-nav>
+          <svg viewBox="0 0 24 24"><path d="M11 3h10v2H3V3h8zm-8 6h18v2H3V9zm0 6h12v2H3v-2zm14 0h4v2h-4v-2zm0 6h4v2h-4v-2z"/></svg>
+          Beleggingen
+        </a>
+        <a href="#contant" class="nav-item" data-nav>
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15.9V19h-2v-1.1c-1.7-.3-3-1.3-3-3.1h2c0 .8.7 1.3 1.9 1.3 1.2 0 1.8-.5 1.8-1.2 0-.6-.4-1-2.2-1.4-2-.4-3.2-1.1-3.2-2.9 0-1.6 1.2-2.7 2.8-3V5h2v1.1c1.6.3 2.8 1.3 2.8 3h-2c0-.7-.6-1.2-1.7-1.2s-1.6.5-1.6 1.1c0 .6.5.9 2.3 1.3 2 .5 3.1 1.2 3.1 3 0 1.7-1.2 2.8-2.9 3.1z"/></svg>
+          Contant
+        </a>
+      </nav>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Marktstatus</div>
+        <div class="market-line"><span class="pulse-dot"></span> Live gesimuleerd</div>
+        <p class="sidebar-card-text">Druk op “Markt simuleren” om koersen realistisch te laten bewegen.</p>
+      </div>
+    </aside>
+
+    <!-- ===== Main ===== -->
+    <main class="main">
+
+      <header class="topbar">
+        <button class="menu-btn" id="menuBtn" aria-label="Menu">
+          <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+        </button>
+        <div class="topbar-titles">
+          <h1 id="pageTitle">Dashboard</h1>
+          <p id="pageDate" class="topbar-date"></p>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn btn-ghost" id="cashBtn">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15.9V19h-2v-1.1c-1.7-.3-3-1.3-3-3.1h2c0 .8.7 1.3 1.9 1.3 1.2 0 1.8-.5 1.8-1.2 0-.6-.4-1-2.2-1.4-2-.4-3.2-1.1-3.2-2.9 0-1.6 1.2-2.7 2.8-3V5h2v1.1c1.6.3 2.8 1.3 2.8 3h-2c0-.7-.6-1.2-1.7-1.2s-1.6.5-1.6 1.1c0 .6.5.9 2.3 1.3 2 .5 3.1 1.2 3.1 3 0 1.7-1.2 2.8-2.9 3.1z"/></svg>
+            Contant beheren
+          </button>
+          <button class="btn btn-primary" id="simulateBtn">
+            <svg viewBox="0 0 24 24"><path d="M12 4V1L7 6l5 5V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-8z"/></svg>
+            Markt simuleren
+          </button>
+        </div>
+      </header>
+
+      <!-- ===== Dashboard ===== -->
+      <section id="dashboard" class="page">
+
+        <div class="stat-grid">
+          <article class="stat-card">
+            <div class="stat-label">Totale waarde</div>
+            <div class="stat-value" id="statTotal">—</div>
+            <div class="stat-sub" id="statTotalSub"></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-label">Geïnvesteerd</div>
+            <div class="stat-value" id="statInvested">—</div>
+            <div class="stat-sub">exclusief contant</div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-label">Winst / verlies</div>
+            <div class="stat-value" id="statPL">—</div>
+            <div class="stat-sub"><span class="badge" id="statPLBadge">—</span></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-label">Posities</div>
+            <div class="stat-value" id="statPositions">—</div>
+            <div class="stat-sub" id="statCashSub"></div>
+          </article>
+        </div>
+
+        <div class="panel-grid">
+          <article class="panel panel-chart">
+            <div class="panel-head">
+              <div>
+                <h2>Waardeverloop</h2>
+                <p class="panel-sub">Totale portfolio-waarde in de afgelopen periode</p>
+              </div>
+              <div class="chart-legend" id="chartLegend"></div>
+            </div>
+            <div class="chart-wrap" id="chartWrap">
+              <svg id="areaChart" preserveAspectRatio="none"></svg>
+              <div class="chart-tooltip" id="chartTooltip" hidden></div>
+            </div>
+          </article>
+
+          <article class="panel panel-donut">
+            <div class="panel-head">
+              <div>
+                <h2>Allocatie</h2>
+                <p class="panel-sub">Verdeling per type belegging</p>
+              </div>
+            </div>
+            <div class="donut-wrap">
+              <svg id="donutChart" viewBox="0 0 200 200"></svg>
+              <div class="donut-center">
+                <div class="donut-center-label">Totaal</div>
+                <div class="donut-center-value" id="donutTotal">—</div>
+              </div>
+            </div>
+            <ul class="donut-legend" id="donutLegend"></ul>
+          </article>
+        </div>
+
+        <article class="panel panel-top">
+          <div class="panel-head">
+            <div>
+              <h2>Topposities</h2>
+              <p class="panel-sub">Beleggingen met de grootste waarde</p>
+            </div>
+            <a href="#beleggingen" class="link" data-navlink>Alle beholdingen →</a>
+          </div>
+          <div class="top-list" id="topList"></div>
+        </article>
+      </section>
+
+      <!-- ===== Beleggingen ===== -->
+      <section id="beleggingen" class="page hidden">
+        <article class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Alle beholdingen</h2>
+              <p class="panel-sub">Beheer je posities: toevoegen, bijwerken of verwijderen</p>
+            </div>
+            <button class="btn btn-primary" id="addHoldingBtn">
+              <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+              Nieuwe belegging
+            </button>
+          </div>
+          <div class="table-wrap">
+            <table class="table" id="holdingsTable">
+              <thead>
+                <tr>
+                  <th>Belegging</th>
+                  <th>Type</th>
+                  <th class="num">Aantal</th>
+                  <th class="num">Aankoop</th>
+                  <th class="num">Huidige koers</th>
+                  <th class="num">Waarde</th>
+                  <th class="num">W/V</th>
+                  <th class="actions"></th>
+                </tr>
+              </thead>
+              <tbody id="holdingsBody"></tbody>
+            </table>
+            <div class="empty-state hidden" id="emptyState">
+              <svg viewBox="0 0 24 24" width="44" height="44"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm0 12-5-5-3 3-3-3-4 4V5h15v10z"/></svg>
+              <h3>Nog geen beholdingen</h3>
+              <p>Voeg je eerste belegging toe en begin met het opbouwen van je portfolio.</p>
+              <button class="btn btn-primary" id="emptyAddBtn">+ Eerste belegging toevoegen</button>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ===== Contant ===== -->
+      <section id="contant" class="page hidden">
+        <article class="panel panel-narrow">
+          <div class="panel-head">
+            <div>
+              <h2>Contant saldo</h2>
+              <p class="panel-sub">Vrij beschikbaar geld telt mee in je totale portfolio-waarde</p>
+            </div>
+          </div>
+          <form id="cashForm" class="cash-form">
+            <label for="cashInput">Huidig contant saldo</label>
+            <div class="cash-row">
+              <span class="cash-euro">€</span>
+              <input type="number" id="cashInput" min="0" step="0.01" required />
+              <button type="submit" class="btn btn-primary">Opslaan</button>
+            </div>
+          </form>
+        </article>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ===== Modal: belegging toevoegen/wijzigen ===== -->
+  <div class="modal-backdrop hidden" id="holdingModal">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <h3 id="modalTitle">Nieuwe belegging</h3>
+        <button class="icon-btn" id="modalClose" aria-label="Sluiten">
+          <svg viewBox="0 0 24 24"><path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z"/></svg>
+        </button>
+      </div>
+      <form id="holdingForm" novalidate>
+        <input type="hidden" id="holdingId" />
+        <div class="field">
+          <label for="fName">Naam</label>
+          <input type="text" id="fName" placeholder="bijv. ASML, Bitcoin, VWRL…" maxlength="60" required />
+          <span class="field-error" id="err-name"></span>
+        </div>
+        <div class="field">
+          <label for="fType">Type</label>
+          <div class="select-wrap">
+            <select id="fType" required>
+              <option value="aandeel">Aandeel</option>
+              <option value="etf">ETF</option>
+              <option value="crypto">Crypto</option>
+              <option value="obligatie">Obligatie</option>
+              <option value="grondstof">Grondstof</option>
+            </select>
+          </div>
+          <span class="field-error" id="err-type"></span>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="fAmount">Aantal</label>
+            <input type="number" id="fAmount" min="0" step="any" placeholder="0" required />
+            <span class="field-error" id="err-amount"></span>
+          </div>
+          <div class="field">
+            <label for="fBuy">Aankoopprijs (€)</label>
+            <input type="number" id="fBuy" min="0" step="0.01" placeholder="0,00" required />
+            <span class="field-error" id="err-buy_price"></span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="fCurrent">Huidige koers (€)</label>
+          <input type="number" id="fCurrent" min="0" step="0.01" placeholder="0,00" required />
+          <span class="field-error" id="err-current_price"></span>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-ghost" id="modalCancel">Annuleren</button>
+          <button type="submit" class="btn btn-primary" id="modalSave">Opslaan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toasts" id="toasts"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
